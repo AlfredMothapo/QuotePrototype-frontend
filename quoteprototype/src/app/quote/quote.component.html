@@ -1,0 +1,60 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Add a quote</h4>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <mat-form-field>
+                            <textarea [(ngModel)]="newQuote.Quote" matInput placeholder="Quote..." name="Quote"></textarea>
+                          </mat-form-field>
+                        <mat-form-field>
+                          <input [(ngModel)]="newQuote.Attributed_to" matInput placeholder="Attributed_to" name="Attributed_to">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input [(ngModel)]="newQuote.Source" matInput placeholder="Source" name="Source">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input [(ngModel)]="newQuote.Year" matInput [matDatepicker]="picker" placeholder="Choose a date" name="Year">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field><br>
+                        <button (click)="saveQuote()" mat-raised-button color="primary" >Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6" *ngFor="let quote of _quotesApiService.quotes">
+            <mat-card>
+                <mat-card-content>
+                  <mat-card-title><q>{{quote.Quote}}</q></mat-card-title>
+                </mat-card-content>
+                <mat-card-subtitle>Attributed to :  {{quote.Attributed_to}}</mat-card-subtitle>
+                <mat-card-subtitle><strong>Source : </strong>{{quote.Source}}</mat-card-subtitle>
+                <mat-card-actions>
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                              </mat-panel-title>
+                              <mat-panel-description>
+                              </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <button mat-icon-button>
+                                <mat-icon (click)="openEditDialog(quote)">mode_edit</mat-icon>
+                            </button>
+                            <button (click)="deleteQuote(quote.id)" mat-icon-button>
+                                <mat-icon color="warn">delete_forever</mat-icon>
+                            </button>
+                          </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-card-actions>
+            </mat-card>
+            
+            <br>
+        </div>
+      </div>
+</div>
