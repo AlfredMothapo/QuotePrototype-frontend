@@ -1,8 +1,15 @@
-<h2 mat-dialog-title>Edit Quote</h2>
+<div id="dialogTitle">
+    <h2 mat-dialog-title>Edit Quote <i class="material-icons pull-right" id="moreVert" [matMenuTriggerFor]="menu">more_vert</i></h2>
+    <mat-menu #menu="matMenu">
+         <button (click)="deleteQuote(Quote.id)" mat-icon-button>
+            <mat-icon color="warn">delete_forever</mat-icon> Delete
+        </button>
+      </mat-menu>
+</div><br>
 <mat-dialog-content>
     <form>
         <mat-form-field>
-            <textarea [(ngModel)]="Quote.Quote" matInput placeholder="Quote..." name="Quote"></textarea>
+            <textarea [(ngModel)]="Quote.Quote" matInput placeholder="Quote..." name="Quote" style="height: 10em;"></textarea>
           </mat-form-field>
         <mat-form-field>
           <input [(ngModel)]="Quote.Attributed_to" matInput placeholder="Attributed_to" name="Attributed_to">
@@ -11,9 +18,7 @@
             <input [(ngModel)]="Quote.Source" matInput placeholder="Source" name="Source">
         </mat-form-field>
         <mat-form-field>
-            <input [(ngModel)]="Quote.Year" matInput [matDatepicker]="picker" placeholder="Choose a date" name="Year">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <input [(ngModel)]="Quote.Year" matInput  placeholder="Enter a year" name="Year">
         </mat-form-field><br>
         <button (click)="save()" mat-raised-button color="primary" >Save</button><button (click)="close()" mat-raised-button color="warning" >Cancel</button>
     </form>
