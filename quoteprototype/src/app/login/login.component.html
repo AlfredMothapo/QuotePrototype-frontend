@@ -1,0 +1,25 @@
+
+  <div class="col-sm-6 col-sm-offset-3" id="loginForm">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Login</h4>
+        </div>
+        <div class="panel-body">
+            <div class="form-container">
+              <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)" class="form-container">
+                <mat-form-field>
+                  <input matInput  placeholder="Email" formControlName="email" >
+                </mat-form-field>
+                <mat-form-field >
+                    <input  matInput  type="password" placeholder="Password" formControlName="password">
+                </mat-form-field><br>
+                <mat-error *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">{{ errorMessage }}</mat-error>
+                <br>
+                <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid" >Login <i class="material-icons">send</i></button>
+                <br><strong><p id="invalidLogin">{{loginErrorMessage}}</p></strong>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+

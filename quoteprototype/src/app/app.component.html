@@ -1,7 +1,12 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <mat-toolbar>
   Quotes App
+<span style="flex: 1 1 auto"></span>
+<button mat-raised-button *ngIf="_authService.isAuthenticated()" (click)="_authService.logOut()">Logout</button>
 </mat-toolbar>
-<br>
-<app-quote></app-quote>
+<br><br><br><br>
+<!-- show login component only if the user is not authenticated -->
+<app-login *ngIf="! _authService.isAuthenticated()"></app-login> 
+<!-- show quotes if authenticated -->
+<app-quote *ngIf="_authService.isAuthenticated()"></app-quote> 
 <router-outlet></router-outlet>

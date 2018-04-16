@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuoteApiService } from '../services/quotes-api-service';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { EditDialog } from '../dialogs/editDialog.component';
+import { Quote } from '../interfaces/quote';
 
 @Component({
   selector: 'app-quote',
@@ -12,11 +13,13 @@ export class QuoteComponent implements OnInit {
 
   constructor(private _quotesApiService : QuoteApiService,private dialog: MatDialog) { }
   newQuote = {}
-  quotes = this._quotesApiService.quotes
+  quotes = []
+  
   ngOnInit() {
-    this._quotesApiService.getAllQuotes()
+    this.quotes.push(this._quotesApiService.getAllQuotes())
   }
   saveQuote(){
+    this.newQuote['Attributed_to']==null ? this.newQuote['Attributed_to']='Anonymous' :  //do nothing
     this.quotes.push(this.newQuote)
     this._quotesApiService.saveQuote(this.newQuote)
   }
@@ -31,7 +34,6 @@ export class QuoteComponent implements OnInit {
   openEditDialog(Quote) {
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = Quote
     const dialogRef =this.dialog.open(EditDialog, dialogConfig);
