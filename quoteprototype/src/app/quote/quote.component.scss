@@ -1,6 +1,17 @@
 .matCard{
-    cursor: pointer
+    cursor: pointer;
+   
 }
 .matCard:hover{
     background-color: whitesmoke
+}
+#addQuote-btn{
+    cursor: pointer;
+    font-size: 30pt;
+    color:blue;
+    margin-top:2%;
+    margin-left: 1%
+}
+#quote{
+    font-family: 'Slabo 27px', serif;
 }

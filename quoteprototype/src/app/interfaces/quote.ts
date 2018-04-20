@@ -3,5 +3,5 @@ export interface Quote{
     Quote : string;
     Source : string;
     Attributed_to : string;
-    Year : Date
+    Year : any
 }

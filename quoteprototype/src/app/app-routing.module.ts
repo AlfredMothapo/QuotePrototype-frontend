@@ -2,17 +2,22 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { QuoteComponent } from './quote/quote.component';
 import { LoginComponent } from './login/login.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
-  { 
-    path: 'quotes-dashboard',
-    component: QuoteComponent ,
- //  data : {}
+ {
+   path : 'users',
+   component : UserManagementComponent
  },
  {
-   path : 'app-login',
-   component : LoginComponent
- }
+   path: 'dashboard',
+   component : DashboardComponent
+ },
+ {
+  path: '',
+  component : DashboardComponent
+},
 ];
 
 @NgModule({

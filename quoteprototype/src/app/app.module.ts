@@ -17,13 +17,25 @@ import { LoginComponent } from './login/login.component';
 import {AuthService} from './services/auth.service';
 import {AuthInterceptorService} from './services/authInterceptor.service';
 import {MatMenuModule} from '@angular/material/menu';
+import { UserManagementComponent } from './user-management/user-management.component';
+import {MatTableModule} from '@angular/material/table'
+import { InsertDialog } from './dialogs/insert-dialog.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditUserDialog } from './dialogs/edit-user-dialog';
+import {MatSelectModule} from '@angular/material/select';
+import { AddUserDialog } from './dialogs/insert-user-dialog';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuoteComponent,
     EditDialog,
-    LoginComponent
+    InsertDialog,
+    EditUserDialog,
+    AddUserDialog,
+    LoginComponent,
+    UserManagementComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +55,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatNativeDateModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+    MatSelectModule
   ],
   providers: [QuoteApiService,UsersApiService,AuthService,
     {
@@ -52,6 +66,6 @@ import {MatMenuModule} from '@angular/material/menu';
     multi:true
   }],
   bootstrap: [AppComponent],
-  entryComponents: [EditDialog]
+  entryComponents: [InsertDialog,EditDialog,EditUserDialog,AddUserDialog]
 })
 export class AppModule { }

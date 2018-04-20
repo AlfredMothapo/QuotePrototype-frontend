@@ -8,7 +8,8 @@
 .form-container > * {
   width: 100%;
 }
-html, body {height: 100%;}
+html, body {height: 100%; background:  #FBFBFB  ;
+}
 #quotesList{
     overflow-y:scroll;
     height: 1000px;
@@ -16,3 +17,6 @@ html, body {height: 100%;}
 #moreVert{
     cursor: pointer
 }
+h1{
+  font-family: 'Tajawal', sans-serif;
+} 

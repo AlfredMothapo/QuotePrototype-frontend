@@ -1,0 +1,33 @@
+<div id="dialogTitle">
+        <h2 mat-dialog-title>Add User </h2>
+        <mat-menu #menu="matMenu">
+        </mat-menu>
+    </div><br>
+    <mat-dialog-content>
+        <div class="form-container">
+            <form [formGroup]="AddUserForm" (ngSubmit)="save(AddUserForm.value)">
+                <mat-form-field>
+                    <input matInput placeholder="Name" formControlName="Name">
+                </mat-form-field><br>
+                <mat-error *ngIf="!AddUserForm.controls['Name'].valid && AddUserForm.controls['Name'].touched">{{ errorMessage }}</mat-error>
+                <mat-form-field>
+                    <input matInput placeholder="Email" formControlName="Email">
+                </mat-form-field><br>
+                <mat-error *ngIf="!AddUserForm.controls['Email'].valid && AddUserForm.controls['Email'].touched">{{ errorMessage }}</mat-error>
+                <mat-form-field>
+                    <input  matInput type="password" placeholder="Password" formControlName="Password">
+                </mat-form-field><br>
+                <mat-error *ngIf="!AddUserForm.controls['Password'].valid && AddUserForm.controls['Password'].touched">{{ errorMessage }}</mat-error>
+                <mat-form-field>
+                        <mat-select [(value)]="selected" formControlName="UserType" placeholder="User Type"> 
+                          <mat-option value="0">Reader</mat-option>
+                          <mat-option value="1">Editor</mat-option>
+                          <mat-option value="2">Admin</mat-option>
+                        </mat-select>
+                </mat-form-field>
+                <br>
+                <button type="submit" [disabled]="!AddUserForm.valid" mat-raised-button color="primary" >Save</button>
+                <button type="button" (click)="close()" mat-raised-button color="warning" >Cancel</button>
+            </form>
+        </div>
+    </mat-dialog-content>

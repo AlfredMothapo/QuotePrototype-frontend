@@ -23,15 +23,15 @@ export class LoginComponent implements OnInit {
       'password' : [null,Validators.required]
     })
   }
-
   ngOnInit() {
+    this._authService.logOut()
   }
   loginUser(user) //login and register
   {
     this._authService.loginUser(user).subscribe((results)=>{
-
       localStorage.setItem(this.tokenKey,results.token)
-
+      //authenticate user
+      this._authService.AuthUser()
     },(error)=>{
         this.loginErrorMessage=error
     });

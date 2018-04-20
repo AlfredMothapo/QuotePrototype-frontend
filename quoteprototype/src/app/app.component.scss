@@ -1,0 +1,48 @@
+.sidenav {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 1px 1px 1px silver;
+    z-index: 1;
+    overflow-x: hidden;
+    padding-top: 20px;
+    transition: 0.5s;
+    background-color: #F9F8F8    
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.navbar-default{
+    box-shadow: 1px 1px 1px silver;
+    background-color: blue
+}
+.sidenav-content{
+    margin-top:15%;
+    margin-left: 15%;
+
+}
+.sidenav-content h5:hover{
+    padding: 3%;
+    cursor: pointer;
+    color:black
+}
+.sidenav-content h5{
+    padding: 3%;
+    color: black;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: bold
+}
+.closebtn {
+    font-size: 36px;
+    margin-left: 20%;
+}
+.navbar-brand{
+    color: white
+}
+.navbar-brand:hover{
+    color: turquoise
+}
