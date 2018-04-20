@@ -1,0 +1,27 @@
+<div id="dialogTitle">
+    <h2 mat-dialog-title>Insert Quote </h2>
+    <mat-menu #menu="matMenu">
+    </mat-menu>
+</div><br>
+<mat-dialog-content>
+    <div class="form-container">
+        <form [formGroup]="InsertQuoteForm" (ngSubmit)="save(InsertQuoteForm.value)">
+            <mat-form-field>
+                <textarea  matInput placeholder="Quote..." formControlName="Quote" style="height: 10em;"></textarea>
+            </mat-form-field><br>
+            <mat-error *ngIf="!InsertQuoteForm.controls['Quote'].valid && InsertQuoteForm.controls['Quote'].touched">{{ errorMessage }}</mat-error>
+            <mat-form-field>
+            <input matInput placeholder="Attributed_to" formControlName="Attributed_to">
+            </mat-form-field><br>
+            <mat-error *ngIf="!InsertQuoteForm.controls['Attributed_to'].valid && InsertQuoteForm.controls['Attributed_to'].touched">{{ errorMessage }}</mat-error>
+            <mat-form-field>
+                <input  matInput placeholder="Source" formControlName="Source">
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput  placeholder="Enter a year" formControlName="Year">
+            </mat-form-field><br>
+            <button type="submit" [disabled]="!InsertQuoteForm.valid" mat-raised-button color="primary" >Save</button>
+            <button type="button" (click)="close()" mat-raised-button color="warning" >Cancel</button>
+        </form>
+    </div>
+</mat-dialog-content>

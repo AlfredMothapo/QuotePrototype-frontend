@@ -1,0 +1,23 @@
+<div id="dialogTitle">
+        <h4 mat-dialog-title>Edit User type <i class="material-icons pull-right" id="moreVert" [matMenuTriggerFor]="menu">more_vert</i></h4>
+        <mat-menu #menu="matMenu">
+             <button (click)="dataCallback(User.id)" mat-icon-button>
+                <mat-icon color="warn">delete_forever</mat-icon> Delete
+            </button>
+          </mat-menu>
+    </div><br>
+    <mat-dialog-content>
+        <form>
+            <p><strong>Name : </strong>{{User.name}}</p>
+            <p><strong>Email : </strong>{{User.email}}</p>
+            <mat-form-field>    
+                <mat-select placeholder={{getUserType(User.user_type)}} [(ngModel)]="selectedValue" name="user_type">
+                    <mat-option *ngFor="let user_type of UserTypes" [value]="user_type.value">
+                        {{user_type.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <br>
+            <button (click)="save()" mat-raised-button color="primary" >Save</button><button (click)="close()" mat-raised-button color="warning" >Cancel</button>
+        </form>
+    </mat-dialog-content>

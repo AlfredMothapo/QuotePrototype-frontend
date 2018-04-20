@@ -4,10 +4,17 @@ import { HttpHeaders } from '@angular/common/http';
 import { User } from '../interfaces/user';
 import { ErrorObservable } from "rxjs/observable/ErrorObservable";
 import 'rxjs/add/operator/catch';
+import { decode } from "jwt-simple";
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from "../../environments/environment";
+
+const JWThelper = new JwtHelperService();
 
 @Injectable()
 export class AuthService implements OnInit{
-    tokenKey = 'token' //must be read from config file.
+    tokenKey = environment.tokenKey //must be read from config file.
+    authUser : any
+    UserType = environment.UserType
     constructor(private http:HttpClient){
     }
     ngOnInit(){
@@ -23,6 +30,13 @@ export class AuthService implements OnInit{
     logOut()
     {
         localStorage.removeItem(this.tokenKey)
+    }
+    AuthUser()
+    {
+        if(this.authUser==undefined){
+            this.authUser = JWThelper.decodeToken(localStorage.getItem(this.tokenKey))['subject']
+        }
+        return this.authUser    
     }
     private errorHandler(error: HttpErrorResponse)
     {

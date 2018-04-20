@@ -1,12 +1,26 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar>
-  Quotes App
-<span style="flex: 1 1 auto"></span>
-<button mat-raised-button *ngIf="_authService.isAuthenticated()" (click)="_authService.logOut()">Logout</button>
-</mat-toolbar>
-<br><br><br><br>
-<!-- show login component only if the user is not authenticated -->
-<app-login *ngIf="! _authService.isAuthenticated()"></app-login> 
-<!-- show quotes if authenticated -->
-<app-quote *ngIf="_authService.isAuthenticated()"></app-quote> 
+<div class="container">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+          <span *ngIf="_authService.isAuthenticated()"  class="navbar-brand" style="font-size:30px;cursor:pointer" (click)="open==false?  openNav() : closeNav()">&#9776;</span>
+        <a class="navbar-brand" href="#">Quotes App</a>
+      </div>
+    </div>
+</nav>
+<div class="sidenav" id="Sidenav"  *ngIf="_authService.isAuthenticated()">
+    
+    <div class="sidenav-content">
+     <br>
+        <h5 routerLink="dashboard"><i class="material-icons" >library_books</i> Quotes</h5>
+        <hr>
+        <h5 routerLink="users" *ngIf="_authService.AuthUser()!=null && _authService.AuthUser().type==UserType.Admin"><i class="material-icons">account_circle</i>  Users</h5>
+        <hr>
+        <button mat-raised-button *ngIf="_authService.isAuthenticated()" (click)="_authService.logOut()"> <i class="material-icons">keyboard_backspace</i> Logout</button>
+    </div>
+  </div><br><br>
+ 
+
 <router-outlet></router-outlet>
+
+</div>
+<app-login *ngIf="! _authService.isAuthenticated()"></app-login>

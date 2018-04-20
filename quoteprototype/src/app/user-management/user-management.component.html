@@ -1,0 +1,29 @@
+<div class="main-items" id="menuItems"  *ngIf=" _authService.isAuthenticated() && _authService.AuthUser().type== _authService.UserType.Admin;else Unauthorized">
+    <br>
+    <div class="panel panel-default panel-body">
+        <h5><i class="material-icons" id="addUser-btn" (click)="openAddUserDialog()">person_add</i></h5><hr>
+        <table class="table table-hover table-responsive">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>User type</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let user of users" (click)="openEditUserDialog(user)" id="tableContent">
+              <tr *ngIf="user.id!=_authService.AuthUser().id">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{getUserType(user.user_type)}}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+    {{errorMessage}}
+  </div>
+  <br><br>
+ <ng-template #Unauthorized>
+  <div class="main-items"  id="menuItems">
+    <div class="alert alert-danger"><i class="material-icons">warning</i> Unauthorized, You have no permission to view this page.</div>
+</div>
+ </ng-template>

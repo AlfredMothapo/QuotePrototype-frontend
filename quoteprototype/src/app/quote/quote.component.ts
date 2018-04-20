@@ -3,6 +3,8 @@ import { QuoteApiService } from '../services/quotes-api-service';
 import {MatDialog, MatDialogConfig} from "@angular/material";
 import { EditDialog } from '../dialogs/editDialog.component';
 import { Quote } from '../interfaces/quote';
+import { AuthService } from '../services/auth.service';
+import { InsertDialog } from '../dialogs/insert-dialog.component';
 
 @Component({
   selector: 'app-quote',
@@ -11,25 +13,36 @@ import { Quote } from '../interfaces/quote';
 })
 export class QuoteComponent implements OnInit {
 
-  constructor(private _quotesApiService : QuoteApiService,private dialog: MatDialog) { }
+  constructor(private _quotesApiService : QuoteApiService,private dialog: MatDialog,private _authService : AuthService) {
+   
+   }
   newQuote = {}
   quotes = []
-  
+  authUser ;
+  UserType = this._authService.UserType
+  errorMessage : string
+
   ngOnInit() {
     this.quotes.push(this._quotesApiService.getAllQuotes())
   }
-  saveQuote(){
-    this.newQuote['Attributed_to']==null ? this.newQuote['Attributed_to']='Anonymous' :  //do nothing
-    this.quotes.push(this.newQuote)
-    this._quotesApiService.saveQuote(this.newQuote)
-  }
-  deleteQuote(id)
-  {
-    this._quotesApiService.deleteQuote(id)
+  saveQuote(quote){
+
+    quote.Source==null ? quote.Source='Anonymous' :  //do nothing
+    this.quotes.push(quote)
+    this._quotesApiService.saveQuote(quote).subscribe(()=>{
+       //update quotes
+       this._quotesApiService.getAllQuotes() //to update the id of the newly inserted code for incase we might want to delete it since the id is set auto by db.
+    },(error)=>{
+      this.errorMessage=error
+    })
   }
   updateQuote(updatedQuote)
   {
-    this._quotesApiService.updateQuote(updatedQuote)
+    this._quotesApiService.updateQuote(updatedQuote).subscribe(()=>{
+      //do nothing on success
+    },(error)=>{
+      this.errorMessage=error
+    })
   }
   openEditDialog(Quote) {
 
@@ -43,6 +56,17 @@ export class QuoteComponent implements OnInit {
         this.updateQuote(data);
       }
     })
-}
+  }
+  openInsertDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    const dialogRef =this.dialog.open(InsertDialog, dialogConfig);
+    //get the data after the dialog is closed
+    dialogRef.afterClosed().subscribe((data)=>{
+      if(data){
+        this.saveQuote(data);
+      }
+    })
+  }
 
 }

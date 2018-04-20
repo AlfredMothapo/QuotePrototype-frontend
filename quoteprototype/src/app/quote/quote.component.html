@@ -1,44 +1,25 @@
-
-<div class="container">
-    <div class="row">
-            <div class="col-md-4">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h4>Add a quote</h4>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-container">
-                                <mat-form-field>
-                                    <textarea [(ngModel)]="newQuote.Quote" matInput placeholder="Quote..." name="Quote"></textarea>
-                                  </mat-form-field>
-                                <mat-form-field>
-                                  <input [(ngModel)]="newQuote.Attributed_to" matInput placeholder="Attributed_to" name="Attributed_to">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <input [(ngModel)]="newQuote.Source" matInput placeholder="Source" name="Source">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <input [(ngModel)]="newQuote.Year" matInput [matDatepicker]="picker" placeholder="Choose a date" name="Year">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                </mat-form-field><br>
-                                <button (click)="saveQuote()" mat-raised-button color="primary" >Add <i class="material-icons">add</i> </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        <div class="col-md-8 panel panel-default panel-body" id="quotesList">
+        <div>
+            <h5 *ngIf="_authService.AuthUser()!=null && _authService.AuthUser().type!=UserType.Reader"><i class="material-icons" id="addQuote-btn" (click)="openInsertDialog()">library_add</i></h5><br>
             <div class="col-md-12" *ngFor="let quote of _quotesApiService.quotes">
-                <mat-card  (click)="openEditDialog(quote)" class="matCard">
+            <div *ngIf="_authService.AuthUser()!=null && _authService.AuthUser().type==UserType.Reader;else editor_content">
+                <mat-card class="matCard">
                     <mat-card-content>
-                      <mat-card-title><q>{{quote.Quote}}</q></mat-card-title>
+                     <mat-card-title ><q>{{quote.Quote}}</q></mat-card-title>
                     </mat-card-content>
-                    <mat-card-subtitle>Attributed to :  {{quote.Attributed_to}}</mat-card-subtitle>
-                    <mat-card-subtitle><strong>Source : </strong>{{quote.Source}}</mat-card-subtitle>
+                <mat-card-subtitle> ~ {{quote.Attributed_to}}</mat-card-subtitle>
+                    <mat-card-subtitle><strong>Source : </strong>{{quote.Source}} <p class="pull-right">{{quote.Year}}</p></mat-card-subtitle>
                 </mat-card>
-                
+            </div>    
+            <ng-template #editor_content>
+                    <mat-card  (click)="openEditDialog(quote)" class="matCard">
+                            <mat-card-content>
+                              <mat-card-title><q>{{quote.Quote}}</q></mat-card-title>
+                            </mat-card-content>
+                            <mat-card-subtitle>~ {{quote.Attributed_to}}</mat-card-subtitle>
+                            <mat-card-subtitle><strong>Source : </strong>{{quote.Source}} <p class="pull-right">{{quote.Year}}</p></mat-card-subtitle>
+                            
+                    </mat-card>
+            </ng-template>
                 <br>
             </div>
         </div>
-      </div>
-</div>
