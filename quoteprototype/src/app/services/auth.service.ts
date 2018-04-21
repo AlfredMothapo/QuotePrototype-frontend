@@ -30,11 +30,13 @@ export class AuthService implements OnInit{
     logOut()
     {
         localStorage.removeItem(this.tokenKey)
+        location.reload()
     }
     AuthUser()
     {
         if(this.authUser==undefined){
             this.authUser = JWThelper.decodeToken(localStorage.getItem(this.tokenKey))['subject']
+            console.log(this.authUser)
         }
         return this.authUser    
     }
